@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Segment, Form, Button } from 'semantic-ui-react'
+import { Route } from 'react-router-dom';
 
  class EventForm extends Component {
      state={
@@ -10,6 +11,14 @@ import { Segment, Form, Button } from 'semantic-ui-react'
          hostedBy :''
      };
 
+     componentDidMount(){
+       if(this.props.selectedEvent !== null){
+         this.setState({
+           ...this.props.selectedEvent
+         })
+       }
+     }
+
      handleDataChange = evt => {
          this.setState({
             [evt.target.name] : evt.target.value
@@ -18,7 +27,11 @@ import { Segment, Form, Button } from 'semantic-ui-react'
 
      handleSubmit = evt =>{
          evt.preventDefault();
-         this.props.newEvent(this.state);
+         if(this.state.id ){
+          this.props.updateEvent(this.state);
+         }else{
+          this.props.newEvent(this.state);
+         }
      };
 
     render() {
