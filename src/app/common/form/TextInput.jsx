@@ -17,7 +17,7 @@ const TextInput = ({
         </Label>
       )}
     </Form.Field>
-  );
+  ); 
 };
 
 export default TextInput;

@@ -1,29 +1,38 @@
 import React, { Component } from 'react'
+import {connect} from 'react-redux'
 import { Menu, Container, Button } from 'semantic-ui-react';
 import { NavLink ,withRouter} from 'react-router-dom';
 import { Link } from 'react-router-dom';
-import { SignedOutMenu } from '../Menus/SignedOutMenu';
-import { SignedInMenu } from '../Menus/SignedInMenu';
+import { SignedOutMenu } from '../../Menus/SignedOutMenu';
+import { SignedInMenu } from '../../Menus/SignedInMenu';
+import {openModal} from '../../Modals/modalActions';
+import {logOut} from '../../auth/authActions'
 
- class NavBar extends Component {
-   state={
-     authenticated:true
-   }
+const actions = {
+  openModal,
+  logOut
+}
+
+const mapState = (state) => ({
+  auth : state.auth
+})
+class NavBar extends Component {
 
    handleSignIn = ()=>{
-     this.setState({
-       authenticated:true
-     })
+    this.props.openModal('LoginModal')
+   }
+
+   handleRegister =()=>{
+     this.props.openModal('RegisterModal')
    }
 
    handleSignOut = () =>{
-     this.setState({
-       authenticated:false
-     })
+     this.props.logOut();
      this.props.history.push('/');
    }
     render() {
-      const {authenticated} = this.state
+      const {auth} = this.props;
+      const authenticated = auth.authenticated
         return (
             <div>
                       <Menu inverted fixed="top">
@@ -38,9 +47,9 @@ import { SignedInMenu } from '../Menus/SignedInMenu';
                             <Button as={Link} to="/createEvent" floated="right" positive inverted content="Create Event" />
                           </Menu.Item>
                           {authenticated ? 
-                          <SignedInMenu signOut={this.handleSignOut}/> 
+                          <SignedInMenu signOut={this.handleSignOut} currentUser={auth.currentUser}/> 
                           : 
-                          <SignedOutMenu signIn={this.handleSignIn}/>}
+                          <SignedOutMenu signIn={this.handleSignIn} register={this.handleRegister}/>}
                           
                           
                         </Container>
@@ -49,4 +58,4 @@ import { SignedInMenu } from '../Menus/SignedInMenu';
         )
     }
 }
-export default withRouter(NavBar);
+export default withRouter(connect(mapState, actions)(NavBar));

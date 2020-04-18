@@ -6,4 +6,4 @@ export const createReducer = (initialState, fnMap) => {
 
         return handler ? handler(state,payload) : state
     }
-}
+}  
