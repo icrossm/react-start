@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { Grid } from "semantic-ui-react";
 import EventList from "../EvenList/EventList";
 import {connect} from 'react-redux';
-import cuid from "cuid";
 import {createEvent,updateEvent,deleteEvent} from '../eventActions';
 
 

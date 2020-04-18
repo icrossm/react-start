@@ -1,10 +1,10 @@
 import React from "react";
-import { Grid } from "semantic-ui-react";
-import EventDetailedInfo from "./EventDetailedInfo";
-import EventDetailedChat from "./EventDetailedChat";
-import EventDetailedSideBar from "./EventDetailedSideBar";
-import EventDetailedHeader from "./EventDetailedHeader";
 import { connect } from "react-redux";
+import { Grid } from "semantic-ui-react";
+import EventDetailedChat from "./EventDetailedChat";
+import EventDetailedHeader from "./EventDetailedHeader";
+import EventDetailedInfo from "./EventDetailedInfo";
+import EventDetailedSideBar from "./EventDetailedSideBar";
 
 const mapState = (state, ownProps) => {
   const eventId = ownProps.match.params.id;
@@ -28,7 +28,7 @@ const EventDetailed = ({ event }) => {
         <EventDetailedChat />
       </Grid.Column>
       <Grid.Column width={6}>
-        <EventDetailedSideBar attendees={event.attendees} />
+        {/* <EventDetailedSideBar attendees={event.attendees} /> */}
       </Grid.Column>
     </Grid>
   );
